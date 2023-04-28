@@ -1,12 +1,13 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 // import { removeContact } from 'redux/contacts/contacts.actions';
-import { removeContact } from 'redux/contacts/contacts.slice';
+
+import { getContactsList, removeContact } from 'redux/contacts/contacts.slice';
 import css from './Contacts.module.css';
 
 const Contacts = () => {
-  const contacts = useSelector(state => state.contacts);
-  const value = useSelector(state => state.filter);
+  const contacts = useSelector(getContactsList);
+  const value = useSelector(state => state.contacts.filter);
 
   const dispatch = useDispatch();
 
@@ -15,9 +16,9 @@ const Contacts = () => {
   };
 
   const filterContact = () => {
-    const normalizedFilter = value.toLowerCase();
-    return contacts?.filter(contact =>
-      contact.name.toLowerCase().includes(normalizedFilter)
+    // const normalizedFilter = value.toLowerCase();
+    return contacts.filter(contact =>
+      contact.name.toLowerCase().includes(value.toLowerCase())
     );
   };
   const filterContacts = filterContact();
